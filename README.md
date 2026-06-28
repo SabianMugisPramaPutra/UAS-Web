@@ -152,15 +152,15 @@ docker compose up -d --build
 
 ## 4. Lessons Learned
 
-* **⚡ Manajemen Kolaborasi & Resource VPS:** Sebagai penyewa utama VPS yang membagi space server untuk kebutuhan bersama, proyek ini memberikan pelajaran berharga mengenai pentingnya *resource allocation* dan isolasi aplikasi menggunakan Docker agar port antar project tidak saling bertabrakan.
-* **🔒 Pemahaman Hak Akses (Privilege Limitation):** Menghadapi kendala non-sudoers (`bian14fire is not in the sudoers file`) memberikan pemahaman nyata tentang dunia kerja DevOps/Sysadmin. Kita dipaksa kreatif melakukan deployment aplikasi secara aman di dalam ruang lingkup *home directory* (`~/`) tanpa mengorbankan stabilitas keamanan folder root sistem sistem operasi.
-* **🌐 Konsep Web Pasca-Deployment:** Memahami secara mendalam bahwa deployment tidak sekadar membuat container aktif, melainkan bagaimana mengatur manajemen DNS tingkat lanjut, pengelolaan subdomain kustom di registrar, serta menjembatani traffic publik menggunakan Nginx Reverse Proxy.
+* ** Manajemen Kolaborasi & Resource VPS:** Sebagai penyewa utama VPS yang membagi space server untuk kebutuhan bersama, proyek ini memberikan pelajaran berharga mengenai pentingnya *resource allocation* dan isolasi aplikasi menggunakan Docker agar port antar project tidak saling bertabrakan.
+* ** Pemahaman Hak Akses (Privilege Limitation):** Menghadapi kendala non-sudoers (`bian14fire is not in the sudoers file`) memberikan pemahaman nyata tentang dunia kerja DevOps/Sysadmin. Kita dipaksa kreatif melakukan deployment aplikasi secara aman di dalam ruang lingkup *home directory* (`~/`) tanpa mengorbankan stabilitas keamanan folder root sistem sistem operasi.
+* ** Konsep Web Pasca-Deployment:** Memahami secara mendalam bahwa deployment tidak sekadar membuat container aktif, melainkan bagaimana mengatur manajemen DNS tingkat lanjut, pengelolaan subdomain kustom di registrar, serta menjembatani traffic publik menggunakan Nginx Reverse Proxy.
 
 ---
 
 ## 5. Referensi
 
-* [Endy Muhardin - DevOps Deployment Microservice Kere Hore](https://software.endy.muhardin.com/devops/deployment-microservice-kere-hore-1/)
+* https://software.endy.muhardin.com/devops/deployment-microservice-kere-hore-1/
 * [Official Docker Documentation](https://docs.docker.com/)
 
 ```
