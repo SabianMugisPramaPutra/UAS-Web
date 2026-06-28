@@ -1,7 +1,7 @@
 ```markdown
 # Production Deployment
 
-> **UAS Sistem Operasi + Jaringan Komputer**
+> UAS Sistem Operasi + Jaringan Komputer-Kelas Sentul, Sesi 16
 >
 > Static HTML site yang dideploy ke VPS menggunakan Docker Compose, diakses via subdomain kustom (melalui reverse proxy Nginx), dan dipantau secara real-time menggunakan Uptime Kuma.
 
