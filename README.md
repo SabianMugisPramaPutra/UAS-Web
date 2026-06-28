@@ -1,13 +1,13 @@
-```
-📎-Production Deployment
+```markdown
+# Production Deployment
 
-> **UAS Sistem Operasi + Jaringan Komputer**-Kelas Sentul, Sesi 16
+> **UAS Sistem Operasi + Jaringan Komputer**
 >
 > Static HTML site yang dideploy ke VPS menggunakan Docker Compose, diakses via subdomain kustom (melalui reverse proxy Nginx), dan dipantau secara real-time menggunakan Uptime Kuma.
 
 ---
 
-📎 1. Architecture Diagram
+## 1. Architecture Diagram
 
 ```text
 Developer laptop
@@ -32,14 +32,14 @@ GitHub Repo ───trigger───► GitHub Actions (CI/CD)
 
 ```
 
-# Alur:
+### Alur:
 
 1. **Developer** melakukan `git push` ke branch `main` di GitHub Repo.
 2. **GitHub Actions** otomatis berjalan: melakukan build (jika diperlukan) → SSH ke VPS → mengelola deployment container.
 3. **User** mengakses subdomain kustom → DNS melakukan resolve ke IP VPS `103.168.146.195` → request diterima oleh Nginx port 80 → Nginx melakukan `proxy_pass` ke port internal Docker `8085`.
 4. **Uptime Kuma** melakukan polling endpoint setiap menit untuk memantau status uptime website secara real-time.
 
-📎 Tech Stack
+### Tech Stack
 
 | Layer | Tools |
 | --- | --- |
@@ -69,22 +69,22 @@ UAS-WEB-DEPLOYMENT/
 
 ```
 
+---
 
+## 3. Setup & Deployment
 
-📎 3. Setup & Deployment
+### 3.1 Domain & DNS
 
-📎 3.1 Domain & DNS
+* **Main Domain:** `bianujiweb.my.id`
+* **Sub Domain:** `tazkia.bianujiweb.my.id`
+* **DNS Record:** `A Record` dengan host `tazkia` mengarah langsung ke IP VPS `103.168.146.195` dengan TTL `14400`.
 
-• <Main Domain:> `bianujiweb.my.id`
-• <Sub Domain:> `tazkia.bianujiweb.my.id`
-• <DNS Record:> A Record dengan host `tazkia` mengarah langsung ke IP VPS `103.168.146.195` dengan TTL `14400`.
+### 3.2 Spesifikasi VPS
 
-📎 3.2 Spesifikasi VPS
+* **OS:** Ubuntu Server
+* **User Akses:** `bian14fire` (Non-sudoers)
 
-• <OS:> Ubuntu Server
-• <User Akses:> `bian14fire` (Non-sudoers)
-
-📎 3.3 Konfigurasi Reverse Proxy (Nginx)
+### 3.3 Konfigurasi Reverse Proxy (Nginx)
 
 Karena user utama deployment tidak memiliki hak akses `sudo`, konfigurasi routing port `80` ke port Docker `8085` dikonfigurasikan pada block server Nginx berikut:
 
@@ -104,7 +104,7 @@ server {
 
 ```
 
-📎 3.4 Container Configuration (Docker Compose)
+### 3.4 Container Configuration (Docker Compose)
 
 Aplikasi diisolasi menggunakan Docker Compose dan dijalankan pada port `8085` agar tidak bentrok dengan layanan lain di VPS:
 
@@ -136,24 +136,33 @@ volumes:
 ```
 
 Untuk menjalankan container secara manual di dalam folder project, gunakan perintah:
+
+```bash
 docker compose up -d --build
 
-📎 3.5 Monitoring
+```
+
+### 3.5 Monitoring
 
 * **Dashboard Platform:** Uptime Kuma
 * **Target Monitoring:** `http://103.168.146.195:8085`
 * **Interval Check:** 60 detik
 
+---
 
+## 4. Lessons Learned
 
-📎 4. Lessons Learned
+* **⚡ Manajemen Kolaborasi & Resource VPS:** Sebagai penyewa utama VPS yang membagi space server untuk kebutuhan bersama, proyek ini memberikan pelajaran berharga mengenai pentingnya *resource allocation* dan isolasi aplikasi menggunakan Docker agar port antar project tidak saling bertabrakan.
+* **🔒 Pemahaman Hak Akses (Privilege Limitation):** Menghadapi kendala non-sudoers (`bian14fire is not in the sudoers file`) memberikan pemahaman nyata tentang dunia kerja DevOps/Sysadmin. Kita dipaksa kreatif melakukan deployment aplikasi secara aman di dalam ruang lingkup *home directory* (`~/`) tanpa mengorbankan stabilitas keamanan folder root sistem sistem operasi.
+* **🌐 Konsep Web Pasca-Deployment:** Memahami secara mendalam bahwa deployment tidak sekadar membuat container aktif, melainkan bagaimana mengatur manajemen DNS tingkat lanjut, pengelolaan subdomain kustom di registrar, serta menjembatani traffic publik menggunakan Nginx Reverse Proxy.
 
-• <Manajemen Kolaborasi & Resource VPS:> Sebagai penyewa utama VPS yang membagi space server untuk kebutuhan bersama, proyek ini memberikan pelajaran berharga mengenai pentingnya *resource allocation* dan isolasi aplikasi menggunakan Docker agar port antar project tidak saling bertabrakan.
-• <Pemahaman Hak Akses (Privilege Limitation):> Menghadapi kendala non-sudoers (`bian14fire is not in the sudoers file`) memberikan pemahaman nyata tentang dunia kerja DevOps/Sysadmin. Kita dipaksa kreatif melakukan deployment aplikasi secara aman di dalam ruang lingkup *home directory* (`~/`) tanpa mengorbankan stabilitas keamanan folder root sistem sistem operasi.
-• <Konsep Web Pasca-Deployment:> Memahami secara mendalam bahwa deployment tidak sekadar membuat container aktif, melainkan bagaimana mengatur manajemen DNS tingkat lanjut, pengelolaan subdomain kustom di registrar, serta menjembatani traffic publik menggunakan Nginx Reverse Proxy.
+---
 
+## 5. Referensi
 
+* [Endy Muhardin - DevOps Deployment Microservice Kere Hore](https://software.endy.muhardin.com/devops/deployment-microservice-kere-hore-1/)
+* [Official Docker Documentation](https://docs.docker.com/)
 
-📎 5. Referensi
+```
 
-• https://software.endy.muhardin.com/devops/deployment-microservice-kere-hore-1/
+```
