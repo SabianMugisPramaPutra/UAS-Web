@@ -16,16 +16,9 @@ jobs:
       - name: Deploy ke VPS via SSH
         uses: appleboy/ssh-action@v1.0.3
         with:
-          host: ${{ secrets.VPS_IP }}
+          host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: 22  # Jika teman Anda mengubah port SSH utama VPS, sesuaikan port ini
+          key: ${{ secrets.VPS_SSH_KEY }}
+          port: 22  
           script: |
-            # Ganti path di bawah ini sesuai lokasi folder proyek Anda di VPS
-            cd /var/www/UAS-TAZKIA || (mkdir -p /var/www/UAS-TAZKIA && cd /var/www/UAS-TAZKIA)
-            
-            # Sinkronisasi file dari GitHub ke VPS menggunakan git (pastikan repo sudah di-clone di VPS)
-            git pull origin main || true
-            
-            # Jalankan ulang Docker Compose untuk memperbarui halaman HTML
-            docker compose up -d
+            cd /var/www/uas-deployment || (mkdir -p /var/www/uas-deployment && cd /var/www/uas-deployment)
