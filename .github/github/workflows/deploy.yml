@@ -22,7 +22,7 @@ jobs:
           port: 22  # Jika teman Anda mengubah port SSH utama VPS, sesuaikan port ini
           script: |
             # Ganti path di bawah ini sesuai lokasi folder proyek Anda di VPS
-            cd /var/www/uas-deployment || (mkdir -p /var/www/uas-deployment && cd /var/www/uas-deployment)
+            cd /var/www/UAS-TAZKIA || (mkdir -p /var/www/UAS-TAZKIA && cd /var/www/UAS-TAZKIA)
             
             # Sinkronisasi file dari GitHub ke VPS menggunakan git (pastikan repo sudah di-clone di VPS)
             git pull origin main || true
