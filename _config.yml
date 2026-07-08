@@ -1,4 +1,0 @@
-title: UAS Web Sabian
-theme: minima
-repository: SabianMugisPramaPutra/UAS-Web
-volumes = ["/var/run/docker.sock:/var/run/docker.sock", "/cache"]
